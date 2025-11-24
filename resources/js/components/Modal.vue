@@ -3,7 +3,8 @@
         <Dialog class="relative z-40" @close="handleClose">
             <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100"
                 leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
-                <div class="fixed inset-0 bg-gray-900/10 backdrop-blur-[5px] transition-opacity" />
+                <div
+                    class="fixed top-0 left-0 bottom-0 right-0 inset-0 bg-white/50 dark:bg-gray-800/50 backdrop-blur-[2px]" />
             </TransitionChild>
 
             <div class="fixed inset-0 z-10 w-screen overflow-y-auto ">
@@ -15,21 +16,21 @@
                         leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
                         <DialogPanel
                             class="relative transform  rounded-lg text-left shadow-xl transition-all sm:my-8 min-w-[500px]">
-                            <div class="model-body px-3 py-2 bg-[#192841]">
+                            <div class="model-body px-3 py-2 bg-white dark:bg-gray-800">
                                 <div :class="modelBodyClass">
-                                    <div class="mt-3 text-left">
-                                        <DialogTitle as="h3" class="text-base font-semibold text-gray-100">{{ title }}
+                                    <div class="mt-3 text-left text-gray-700 dark:text-gray-100">
+                                        <DialogTitle as="h3" class="text-base font-semibold">{{ title }}
                                         </DialogTitle>
                                         <slot />
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex justify-end gap-x-4 px-3 pb-4  bg-[#192841]">
+                            <div class="flex justify-end gap-x-4 px-3 pb-4  bg-white dark:bg-gray-800">
                                 <button type="button"
-                                    class="inline-flex w-full justify-center rounded-md bg-slate-500 px-3 py-2 text-sm font-semibold text-white shadow-xs  sm:w-auto"
+                                    class="inline-flex w-full justify-center rounded-md bg-slate-500 px-3 py-2 text-sm font-semibold text-gray-100 shadow-xs  sm:w-auto"
                                     @click="handleClose" ref="cancelButtonRef">Cancel</button>
                                 <button type="button"
-                                    class="inline-flex w-full justify-center rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-xs sm:w-auto"
+                                    class="inline-flex w-full justify-center rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-gray-100 shadow-xs sm:w-auto"
                                     @click="handleSubmit" ref="cancelButtonRef">Submit</button>
                             </div>
                         </DialogPanel>

@@ -1,19 +1,24 @@
 <template>
     <div class="relative" ref="multiSelectRef">
         <div @click="toggleDropdown"
-            class="h-11 flex items-center w-full appearance-none rounded-lg border border-gray-700 bg-gray-900 px-2 py-2 text-sm text-white/90 shadow-theme-xs placeholder:text-white/30 focus:border-brand-800 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10"
-            :class="{ 'text-white/90': isOpen, 'opacity-50 cursor-not-allowed': disabled }">
-            <span v-if="selectedItems.length === 0" class="text-white/30"> {{ placeholder }} </span>
-            <span v-if="multiple && selectedItems.length > 0" class="text-white/30 me-1"> {{ selectedItems.length }}
+            class="h-11 flex items-center w-full appearance-none rounded-lg px-2 py-2 text-sm shadow-theme-xs focus:outline-hidden focus:ring-3 focus:ring-brand-500/10"
+            :class="[
+                'border bg-white text-gray-700 placeholder:text-gray-400 focus:border-brand-800',
+                'dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30',
+                { 'opacity-50 cursor-not-allowed': disabled }
+            ]">
+            <span v-if="selectedItems.length === 0" class=""> {{ placeholder }} </span>
+            <span v-if="multiple && selectedItems.length > 0" class="me-1"> {{ selectedItems.length }}
                 items selected </span>
             <!-- single select (selected item)  -->
             <div v-if="!multiple" class="flex flex-wrap items-center flex-auto gap-2">
-                <div v-for="item in selectedItems" :key="item.value" class="group h-[30px] py-1 text-sm text-white/90">
-                    <span>{{ item.label }}</span>
+                <div v-for="item in selectedItems" :key="item.value"
+                    class="group h-[30px] py-1 text-sm text-gray-800 dark:text-white/90">
+                    <span>{{ item.label ?? item }}</span>
                 </div>
             </div>
-            <svg class="ml-auto" :class="{ 'transform rotate-180': isOpen }" width="20" height="20" viewBox="0 0 20 20"
-                fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg class="ml-auto text-gray-500 dark:text-white" :class="{ 'transform rotate-180': isOpen }" width="20"
+                height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M4.79175 7.39551L10.0001 12.6038L15.2084 7.39551" stroke="currentColor" stroke-width="1.5"
                     stroke-linecap="round" stroke-linejoin="round" />
             </svg>
@@ -22,10 +27,11 @@
         <div v-if="multiple"
             class="max-h-13 py-2.5 overflow-auto  custom-scrollbar flex flex-wrap items-center justify-start flex-auto gap-2">
             <div v-for="item in selectedItems" :key="item.value"
-                class="group flex items-center justify-center h-[30px] rounded-full border-[0.7px] border-transparent bg-gray-800 py-1 pl-2.5 pr-2 text-sm text-white/90 hover:border-gray-800">
+                class="group flex items-center justify-center h-[30px] rounded-full border-[0.7px] bg-gray-100 dark:bg-gray-800 py-1 pl-2.5 pr-2 text-sm text-gray-800 dark:text-white/90 hover:border-gray-200 dark:hover:border-gray-700">
                 <span>{{ item.label }}</span>
                 <button @click.stop="removeItem(item)"
-                    class="pl-2 text-gray-400 cursor-pointer group-hover:text-gray-300" aria-label="Remove item">
+                    class="pl-2 text-gray-500 dark:text-gray-400 cursor-pointer group-hover:text-gray-700 dark:group-hover:text-gray-300"
+                    aria-label="Remove item">
                     <svg role="button" width="14" height="14" viewBox="0 0 14 14" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -39,30 +45,32 @@
             enter-from-class="transform scale-95 opacity-0" enter-to-class="transform scale-100 opacity-100"
             leave-active-class="transition duration-75 ease-in" leave-from-class="transform scale-100 opacity-100"
             leave-to-class="transform scale-95 opacity-0">
-            <div v-if="isOpen" class="absolute z-10 w-full mt-1 bg-gray-900 rounded-lg shadow-sm">
-                <ul v-if="multiple" class="overflow-y-auto divide-y divide-gray-800 custom-scrollbar max-h-60"
+            <div v-if="isOpen" class="absolute z-10 w-full mt-1 bg-white dark:bg-gray-700 rounded-lg shadow-sm">
+                <ul v-if="multiple"
+                    class="overflow-y-auto divide-y divide-gray-200 dark:divide-gray-800 custom-scrollbar max-h-60"
                     role="listbox" aria-multiselectable="true">
                     <li v-for="item in props.options" :key="item.value" @click="toggleItem(item)"
-                        class="relative flex items-center w-full px-3 py-2 border-transparent cursor-pointer first:rounded-t-lg last:rounded-b-lg text-white hover:bg-gray-800"
-                        :class="{ 'bg-white/[0.03]': isSelected(item) }" role="option"
+                        class="relative flex items-center w-full px-3 py-2 border-transparent cursor-pointer first:rounded-t-lg last:rounded-b-lg text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-900"
+                        :class="{ 'bg-gray-200 dark:bg-gray-800': isSelected(item) }" role="option"
                         :aria-selected="isSelected(item)">
-                        <span class="grow">{{ item.label }}</span>
-                        <svg v-if="isSelected(item)" class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <span class="grow">{{ item.label ?? item }}</span>
+                        <svg v-if="isSelected(item)" class="w-5 h-5 text-gray-600 dark:text-gray-300" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
                             </path>
                         </svg>
                     </li>
                 </ul>
-                <ul v-else class="overflow-y-auto divide-y divide-gray-800 custom-scrollbar max-h-60" role="listbox"
-                    aria-multiselectable="true">
+                <ul v-else
+                    class="overflow-y-auto divide-y divide-gray-200 dark:divide-gray-800 custom-scrollbar max-h-60"
+                    role="listbox" aria-multiselectable="true">
                     <li v-for="item in props.options" :key="item.value" @click="selectItem(item)"
-                        class="relative flex items-center w-full px-3 py-2 border-transparent cursor-pointer first:rounded-t-lg last:rounded-b-lg text-white hover:bg-gray-800"
-                        :class="{ 'bg-white/[0.03]': isSelected(item) }" role="option"
+                        class="relative flex items-center w-full px-3 py-2 border-transparent cursor-pointer first:rounded-t-lg last:rounded-b-lg text-gray-700 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
+                        :class="{ 'bg-gray-50 dark:bg-gray-800': isSelected(item) }" role="option"
                         :aria-selected="isSelected(item)">
                         <span class="grow">{{ item.label }}</span>
-                        <svg v-if="isSelected(item)" class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <svg v-if="isSelected(item)" class="w-5 h-5 text-gray-600 dark:text-gray-300" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
                             </path>
                         </svg>
