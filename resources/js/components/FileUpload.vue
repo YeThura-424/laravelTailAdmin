@@ -1,6 +1,6 @@
 <template>
     <div :class="[
-        'upload-wrapper flex p-12 border border-[#e1def51f] rounded relative',
+        'upload-wrapper flex p-8 border rounded relative bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700',
         previews.length > 0 ? ' flex-wrap justify-start items-center gap-3' : 'flex-col justify-center items-center gap-y-3',
     ]">
         <!-- File input -->
@@ -11,15 +11,15 @@
 
         <!-- Upload prompt -->
         <template v-if="previews.length === 0">
-            <div class="upload-icon bg-[#43465d] p-2 rounded">
-                <Icon icon="lucide:upload" class="text-[#e1def5e6] text-xl" />
+            <div class="upload-icon bg-gray-200 dark:bg-gray-600 p-2 rounded">
+                <Icon icon="lucide:upload" class="text-gray-700 dark:text-gray-100 text-xl" />
             </div>
             <div class="upload-message text-center">
-                <p class="text-[#e1def5e6] text-2xl">Drag and drop your image here.</p>
-                <p class="text-[#e1def566] text-sm">or</p>
+                <p class="text-gray-700 dark:text-gray-100 text-2xl">Drag and drop your image here.</p>
+                <p class="text-gray-500 dark:text-gray-400 text-sm">or</p>
             </div>
             <div
-                class="upload-button z-2 relative bg-[#393b63] rounded transition duration-300 px-4 py-1 text-[#e1def5e6] hover:bg-[#474a77]">
+                class="upload-button z-2 relative bg-gray-100 dark:bg-gray-600 rounded transition duration-300 px-4 py-1 text-gray-800 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-600">
                 Browse Images
                 <div class="input-container absolute top-0 left-0 right-0 bottom-0">
                     <input id="file-upload" multiple type="file" class="opacity-0 w-full h-full cursor-pointer"
@@ -30,13 +30,13 @@
 
         <!-- Previews -->
         <div v-for="(item, index) in previews" :key="item.url"
-            class="image-preview-section bg-[#2f3349] rounded p-6 look-box-shadow flex flex-col justify-center items-center gap-y-3">
+            class="image-preview-section bg-gray-100 dark:bg-gray-700 rounded p-6 look-box-shadow flex flex-col justify-center items-center gap-y-3">
             <div class="image-container">
                 <img :src="item.url" alt="" class="w-32 h-32 rounded-lg p-1 object-cover" />
             </div>
             <div class="remove-button z-2">
                 <button @click="handleRemove(index)"
-                    class="bg-[#393b63] rounded transition duration-300 px-4 py-1 text-[#e1def5e6] hover:bg-[#474a77]">
+                    class="bg-gray-200 dark:bg-gray-600 rounded transition duration-300 px-4 py-1 text-gray-800 dark:text-gray-100 hover:bg-gray-300 dark:hover:bg-gray-500">
                     Remove File
                 </button>
             </div>
