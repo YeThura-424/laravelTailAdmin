@@ -373,6 +373,27 @@ layer(base);
   @apply p-0! pl-6!;
 }
 
+/* quill editor  */
+.ql-editor.ql-blank::before {
+    @apply text-gray-700! dark:text-white!;
+}
+
+.ql-toolbar.ql-snow{
+    @apply rounded-tr-lg! rounded-tl-lg! border border-gray-200! dark:border-gray-700! bg-white! dark:bg-gray-900!;
+}
+
+.ql-toolbar.ql-snow+.ql-container.ql-snow {
+    @apply rounded-br-lg! rounded-bl-lg! text-gray-700! dark:text-white! border border-gray-200! dark:border-gray-700! bg-white! dark:bg-gray-900!;
+}
+
+.ql-snow.ql-toolbar button, .ql-snow .ql-toolbar button{
+    @apply rounded;
+}
+
+.ql-snow.ql-toolbar button:hover, .ql-snow .ql-toolbar button:hover, .ql-snow.ql-toolbar button:focus, .ql-snow .ql-toolbar button:focus, .ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow .ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow .ql-toolbar .ql-picker-item:hover {
+    @apply bg-gray-200! dark:bg-gray-800! text-gray-700! dark:text-white!;
+}
+
 .jvm-container {
   @apply bg-gray-50! dark:bg-gray-900!;
 }

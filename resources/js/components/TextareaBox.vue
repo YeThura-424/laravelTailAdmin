@@ -1,13 +1,10 @@
 <template>
-    <div class="w-full">
-        <div class="relative w-full">
-            <textarea v-model="inputValue" :rows="rows" :placeholder="placeholder" :readonly="readonly" ref="EditInput"
-                class="bg-dark-900 w-full rounded-lg border px-4 py-2.5 text-sm shadow-theme-xs focus:outline-none  border-gray-700 bg-gray-900 text-white/90 placeholder:text-white/30 focus:border-brand-800" />
-            <div v-if="readonly" @click="EditText"
-                class="absolute top-3 right-0 h-full w-10 cursor-pointer">
-                <Icon icon="circum:edit" class="text-xl" />
-            </div>
-            </div>
+    <div class="relative w-full">
+        <textarea v-model="inputValue" :rows="rows" :placeholder="placeholder" :readonly="readonly" ref="EditInput"
+            class="w-full rounded-lg border px-4 py-2.5 text-sm shadow-theme-xs focus:outline-none border-gray-200 bg-white text-gray-900 placeholder:text-gray-400 focus:border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+        <div v-if="readonly" @click="EditText" class="absolute top-3 right-0 h-full w-10 cursor-pointer">
+            <Icon icon="circum:edit" class="text-xl" />
+        </div>
     </div>
 </template>
 
